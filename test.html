@@ -1,0 +1,72 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>x3d Panorama</title>
+        <link rel="stylesheet" type="text/css" href="pano.css" />
+        
+        <link rel="stylesheet" type="text/css" href="../Grunwald/x3dom.css" />
+       
+        
+    </head>
+    <body id="body">
+        <x3d height="500px" width="500px" y="0px" x="0px" showlog="true" showstat="false" id="boxes">
+            <scene render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" pickmode="idBuf" dopickpass="true">
+                <viewpoint orientation="-0.60104 -0.28053 0.74837 0.40903" position="-2.25680 3.36560 14.62828" fieldofview="0.785398" centerofrotation="0,0,0" znear="-1" zfar="-1"></viewpoint>
+                <group onclick="handleGroupClick(event);" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1">
+                    
+                    <transform translation="-4.5 0 0" def="coneTrafo" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                        <shape def="coneShape" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" ispickable="true">
+                            <appearance def="coneApp" sorttype="auto" alphaclipthreshold="0.1">
+                                <material diffusecolor="#FF6633" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0"></material>
+                            </appearance>
+                            <cone def="cone" solid="true" ccw="true" usegeocache="true" lit="true" bottomradius="1" height="2" bottom="true" side="true" top="true" subdivision="32"></cone>
+                        </shape>
+                    </transform>
+                    
+                    <transform translation="-1.5 0 0" def="boxTrafo" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                        <shape def="boxShape" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" ispickable="true">
+                            <appearance def="boxApp" sorttype="auto" alphaclipthreshold="0.1">
+                                <material diffusecolor="#FF3366" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0"></material>
+                            </appearance>
+                            <box def="box" solid="true" ccw="true" usegeocache="true" lit="true" size="2,2,2"></box>
+                        </shape>
+                    </transform>
+                    
+                    <transform translation="1.5 0 0" def="sphereTrafo" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                        <shape id="test" def="sphereShape" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" ispickable="true">
+                            <appearance def="sphereApp" sorttype="auto" alphaclipthreshold="0.1">
+                                <material diffusecolor="#3366FF" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0"></material>
+                            </appearance>
+                            <sphere def="sphere" solid="true" ccw="true" usegeocache="true" lit="true" radius="1" subdivision="24,24"></sphere>
+                        </shape>
+                    </transform>
+                    
+                    <transform translation="4.5 0 0" def="cylinderTrafo" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                        <shape def="cylinderShape" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" ispickable="true">
+                            <appearance def="cylinderApp" sorttype="auto" alphaclipthreshold="0.1">
+                                <material diffusecolor="#33FF66" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0"></material>
+                            </appearance>
+                            <cylinder height="2.0" radius="1.0" def="cylinder" solid="true" ccw="true" usegeocache="true" lit="true" bottom="true" top="true" subdivision="32" side="true"></cylinder>
+                        </shape>
+                    </transform>
+                    
+                </group>
+                
+                <transform translation="100 0 0" scale=".15 .15 .15" id="marker" render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" center="0,0,0" rotation="0,0,0,0" scaleorientation="0,0,0,0">
+                    <shape render="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" ispickable="true">
+                        <appearance sorttype="auto" alphaclipthreshold="0.1">
+                            <material diffusecolor="#FFD966" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0"></material>
+                        </appearance>
+                        <sphere solid="true" ccw="true" usegeocache="true" lit="true" radius="1" subdivision="24,24"></sphere>
+                    </shape>
+                </transform>
+                
+            </scene></x3d>
+        <script type="text/javascript" src="require.js"></script>
+        <script type="text/javascript" src="test.js"></script>
+        <script type="text/javascript" src="../Grunwald/x3dom.js"> </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        
+    </body>
+</html>
