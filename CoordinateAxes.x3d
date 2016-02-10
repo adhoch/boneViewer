@@ -25,7 +25,7 @@
         <!-- Vertical Y arrow and label -->
         <Group DEF='ArrowGreen'>
           <Shape>
-            <Cylinder DEF='ArrowCylinder' radius='.025' top='false'/>
+            <Cylinder DEF='Arrowylinder' radius='.025' top='false'/>
             <Appearance DEF='Green'>
               <Material diffuseColor='.1 .6 .1' emissiveColor='.05 .2 .05'/>
             </Appearance>

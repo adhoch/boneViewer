@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>x3d Panorama</title>
+        <title>x3d Viewer</title>
         <script type="text/javascript" src="../Grunwald/x3dom.js"> </script>
-
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="pano.css" />
+        <link rel="stylesheet" type="text/css" href="../x3dViewer/pano.css" />
         
         <link rel="stylesheet" type="text/css" href="../Grunwald/x3dom.css" />
-        >
+        
         
     </head>
     <body id="body">
@@ -39,30 +39,51 @@
                 </div>
                 </div>
                 <scene id="testin">
-                  
+                    
                     <!-- Need viewpoint and navigationWindow in main page for zoom function to work -->
                     <Viewpoint description="start" id="start" DEF="start" position="0 0 0"
                         ></Viewpoint>
                     <Transform id="xcamera">
                         <Transform id="ycamera">
-                                                        
                             
-                    <!-- This gets the xyz coordinates of a click. Used to create clickable items by putting a semitransparent shape over them -->
-                    <Group onclick="document.getElementById('bar').setAttribute('translation', event.hitPnt);">
-                        <!-- *** Main panoramic sphere ***-->
-                        <!-- Prints the xyz coordinates of clicks to the console -->
-                        <Transform id="testtrans">
-
-                            <inline  onclick="console.log(event.hitPnt);preventDefault();" id="x3dFile" nameSpaceName="bones" mapDEFToID="true"  url="400_Spirifer_granulosus_merged.x3d"> </inline></Transform> 
-                    </Group>        
+                            
+                            <!-- This gets the xyz coordinates of a click. Used to create clickable items by putting a semitransparent shape over them -->
+                            <Group onclick="document.getElementById('bar').setAttribute('translation', event.hitPnt);">
+                                <!-- *** Main panoramic sphere ***-->
+                                <!-- Prints the xyz coordinates of clicks to the console -->
+                                <Transform DEF='FIRST_TRANSFORM' translation='-2 0 0'>
+                                    <Transform id="testtrans">
+                                        
+                                        <Group><Transform>
+                                            <TouchSensor DEF='TOUCH' description='touch to activate'></TouchSensor>
+                                            <Transform>
+                                                <SphereSensor DEF='BOXSENSOR' description='click and drag to rotate'></SphereSensor>
+                                                <Transform DEF='MYBOX'>
+                                                    <Transform id="testtrans">
+                                                        
+                                                        <inline  onclick="console.log(event.hitPnt);preventDefault();" id="x3dFile" nameSpaceName="bones" mapDEFToID="true"  url="400_Spirifer_granulosus_merged.x3d"> </inline>
+                                                        <!-- EXAMPLE GROUND PLANE, FOR BETTER ORIENTATION -->
+                                                        
+                                                    </Transform>
+                                                </Transform>
+                                            </Transform>
+                                        </Transform>
+                                        </Group>
+                                    </Transform>
+                                    
+                                </Transform>
+                            </Group>        
                         </Transform>
                     </Transform>
-                                
+                    <transform id="floor" translation='0 -5.5 0' rotation='1 0 0 -1.57'>
+                        <shape>
+                            <appearance><material diffuseColor='0.7 0.7 0.7'></material></appearance>                    
+                            <plane solid='false' size='16 16'></plane>
+                        </shape>
+                    </transform>        
                     <!--<ClipPlane plane="0.7 0 -0.7 0.3" cappingColor="0 0 1" cappingStrength="0.1" id='clip'></ClipPlane>-->
                     
-                    <Transform id="coords" scale='3 3 3' translation='10 -5 105'><Billboard>
-                        <Inline DEF='CoordinateAxes' url='CoordinateAxes.x3d'/></Billboard>
-                    </Transform>
+                    <ROUTE fromField='rotation_changed' fromNode='BOXSENSOR' toField='set_rotation' toNode='MYBOX'></ROUTE>
                 </scene>
             </x3d></div>
             <!-- zoom in and zoom out buttons as well as overlay -->
