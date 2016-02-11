@@ -1,4 +1,7 @@
 $(window).bind("load", function(){
+
+ 
+
 inlineX3d=document.getElementById('x3dFile');
 console.log(inlineX3d._x3domNode.getVolume());
 vol=inlineX3d._x3domNode.getVolume();
@@ -24,7 +27,12 @@ document.getElementById('start').setAttribute('position', '0 0 '+(vol.max.z-vol.
 translateCheck();    
 }
 
-
+   console.log('yes');
+$('#h').click(function(){
+    console.log('test');
+    $('scene').append("<ClipPlane DEF='ClipPlaneHorizontal' containerField='children'/> ");
+});
+$('#v').click(function(){$('scene').append("<ClipPlane DEF='ClipPlaneVertical' plane='0 0 -1 0' containerField='children'/>");});
 translateCheck();
 translateStart();
 }
@@ -198,3 +206,11 @@ translateStart();
             vpt.fieldOfView = parseFloat(vpt.fieldOfView) + delta;
         }
     }
+    
+   $(document).ready(function(){
+   console.log('yes');
+$('#h').click(function(){
+    console.log('test');
+    $('scene').append("<ClipPlane DEF='ClipPlaneHorizontal' containerField='children'/> ");
+});
+$('#v').click(function(){$('scene').append("<ClipPlane DEF='ClipPlaneVertical' plane='0 0 -1 0' containerField='children'/>");});})
