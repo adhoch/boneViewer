@@ -39,8 +39,9 @@
                 </div>
                 </div>
                 <scene id="scene" onclick="alert(event.hitPnt)">
-                    <NavigationInfo type='NONE'></NavigationInfo>
-                    
+                    <NavigationInfo type='NONE' headlight="true"></NavigationInfo>
+                    <Transform translation='0 0 24'><directionalLight direction='0 -1 0' intensity='1.0' shadowIntensity='0.7'>
+                    </directionalLight></Transform>
                     <Viewpoint description="start" id="start" DEF="start" position="0 0 0"
                         ></Viewpoint>
                     <Transform id="xcamera">
@@ -66,10 +67,10 @@
                         </Transform>
                     </Transform>
                     <transform id="floor" translation='0 -5.5 0' rotation='1 0 0 -1.57'>
-                        <Shape>
-                            <appearance><material diffuseColor='0.7 0.7 0.7'></material></appearance>                    
+                        <shape>
+                            <appearance><material effusiveColor= '1 1 0' diffuseColor='1 0 0'></material></appearance>                    
                             <plane solid='false' size='16 16'></plane>
-                        </Shape>
+                        </shape>
                     </transform>
                     
                     <Transform id="coords" scale='3 3 3' translation='10 -5 105'><Billboard>
@@ -91,6 +92,7 @@
                 <div id="wire">
                     <input name="object" type="checkbox" checked/>Show Object<br/>
                     <input name="wireframe" type="checkbox"/>Show Wireframe<br/>
+                    <input name="points" type="checkbox"/>Show Points<br/>
                 </div>
             </div>
             <!-- item click overlay. Each item in the x3d needs to identify it's item # by having the attribute "onclick='overlay(ITEM#);'" -->
