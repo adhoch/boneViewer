@@ -6,13 +6,13 @@
         <script type="text/javascript" src="../Grunwald/x3dom.js"> </script>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../x3dViewer/pano.css" />
+        <link rel="stylesheet" type="text/css" href="../x3dviewer/pano.css" />
         
         <link rel="stylesheet" type="text/css" href="../Grunwald/x3dom.css" />
         
         
     </head>
-    <body id="body">
+    <body id="body" onload="initialize();">
         <div id="pano">
             <div id="testing"><x3d id="x3dcontext" showlog="true" style="background:grey;">
                 <div id="butCont"><div id="navbuts">
@@ -38,57 +38,60 @@
                         value="&rarr;">&rarr;</button>
                 </div>
                 </div>
-                <scene id="testin">
+                <scene id="scene" onclick="alert(event.hitPnt)">
+                    <NavigationInfo type='NONE'></NavigationInfo>
                     
-                    <!-- Need viewpoint and navigationWindow in main page for zoom function to work -->
                     <Viewpoint description="start" id="start" DEF="start" position="0 0 0"
                         ></Viewpoint>
                     <Transform id="xcamera">
-                        <Transform id="ycamera">
+                        <Transform id="ycamera"> 
                             
-                            
-                            <!-- This gets the xyz coordinates of a click. Used to create clickable items by putting a semitransparent shape over them -->
-                            <Group onclick="document.getElementById('bar').setAttribute('translation', event.hitPnt);">
-                                <!-- *** Main panoramic sphere ***-->
-                                <!-- Prints the xyz coordinates of clicks to the console -->
-                                <Transform DEF='FIRST_TRANSFORM' translation='-2 0 0'>
-                                    <Transform id="testtrans">
-                                        
-                                        <Group><Transform>
-                                            <TouchSensor DEF='TOUCH' description='touch to activate'></TouchSensor>
-                                            <Transform>
-                                                <SphereSensor DEF='BOXSENSOR' description='click and drag to rotate'></SphereSensor>
-                                                <Transform DEF='MYBOX'>
-                                                    <Transform id="testtrans">
-                                                        
-                                                        <inline  onclick="console.log(event.hitPnt);preventDefault();" id="x3dFile" nameSpaceName="bones" mapDEFToID="true"  url="400_Spirifer_granulosus_merged.x3d"> </inline>
-                                                        <!-- EXAMPLE GROUND PLANE, FOR BETTER ORIENTATION -->
-                                                        
-                                                    </Transform>
-                                                </Transform>
+                            <Group>
+                                
+                                <Transform>
+                                    <TouchSensor DEF='TOUCH' description='touch to activate'></TouchSensor>
+                                    <Transform id="clipScope">
+                                        <SphereSensor DEF='BOXSENSOR' description='click and drag to rotate'></SphereSensor>
+                                        <Transform DEF='MYBOX'>
+                                            <Transform id="testtrans">
+                                                
+                                                <inline  onclick="console.log(event.hitPnt);preventDefault();" id="x3dFile" nameSpaceName="bones" mapDEFToID="true"  url="400_Spirifer_granulosus_merged.x3d"> </inline>
+                                                <!-- EXAMPLE GROUND PLANE, FOR BETTER ORIENTATION -->
+                                                
                                             </Transform>
                                         </Transform>
-                                        </Group>
                                     </Transform>
-                                    
                                 </Transform>
-                            </Group>        
+                            </Group>
                         </Transform>
                     </Transform>
                     <transform id="floor" translation='0 -5.5 0' rotation='1 0 0 -1.57'>
-                        <shape>
+                        <Shape>
                             <appearance><material diffuseColor='0.7 0.7 0.7'></material></appearance>                    
                             <plane solid='false' size='16 16'></plane>
-                        </shape>
-                    </transform>        
+                        </Shape>
+                    </transform>
+                    
+                    <Transform id="coords" scale='3 3 3' translation='10 -5 105'><Billboard>
+                        <Inline DEF='CoordinateAxes' url='CoordinateAxes.x3d'/></Billboard>
+                    </Transform>
+                    <ROUTE fromField='rotation_changed' fromNode='BOXSENSOR' toField='set_rotation' toNode='MYBOX'></ROUTE>
+                    
                     <!--<ClipPlane plane="0.7 0 -0.7 0.3" cappingColor="0 0 1" cappingStrength="0.1" id='clip'></ClipPlane>-->
                     
-                    <ROUTE fromField='rotation_changed' fromNode='BOXSENSOR' toField='set_rotation' toNode='MYBOX'></ROUTE>
+                    
                 </scene>
             </x3d></div>
             <!-- zoom in and zoom out buttons as well as overlay -->
             <div id="mainNav">
-                <div id="inputShape"></div>
+                
+                <div id="sideMenu" style="display:inline-block;" >
+                    <Button type="button" onclick="addClipPlane();">ADD CLIPPLANE</Button>
+                </div>
+                <div id="wire">
+                    <input name="object" type="checkbox" checked/>Show Object<br/>
+                    <input name="wireframe" type="checkbox"/>Show Wireframe<br/>
+                </div>
             </div>
             <!-- item click overlay. Each item in the x3d needs to identify it's item # by having the attribute "onclick='overlay(ITEM#);'" -->
             <div id="overlay" style="display:none;">
